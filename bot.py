@@ -196,7 +196,8 @@ async def cv_skills_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("❌ Sorry, there was an error generating your CV. Please try again.")
     
     # Clean up user data
-    del user_data[user_id]
+    if user_id in user_data:
+        del user_data[user_id]
     
     # Show main menu again
     await start(update, context)
@@ -251,7 +252,8 @@ async def cl_description_handler(update: Update, context: ContextTypes.DEFAULT_T
         parse_mode='Markdown'
     )
     
-    del user_data[user_id]
+    if user_id in user_data:
+        del user_data[user_id]
     await start(update, context)
     return ConversationHandler.END
 
@@ -305,7 +307,8 @@ async def interview_company_handler(update: Update, context: ContextTypes.DEFAUL
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("Would you like to practice?", reply_markup=reply_markup)
     
-    del user_data[user_id]
+    if user_id in user_data:
+        del user_data[user_id]
     return ConversationHandler.END
 
 async def improve_cv_start(query):
